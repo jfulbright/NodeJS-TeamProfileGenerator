@@ -36,6 +36,12 @@ const promptsManager = [
         type: 'input',
         name: 'officeNumber',
         message: "Enter Manager's office number",
+    },
+    {
+        type: 'confirm',
+        name: 'addEmployees',
+        message: 'Would you like to add team members now?',
+        default: false
     }
 ];
 
@@ -90,7 +96,11 @@ const addManager = () => {inquirer
         const Managers = new Manager(id, fullName , email, officeNumber);
         teamArray.push(Managers);
         console.log(teamArray);
-        return teamArray;
+        if (managerFields.addEmployees) {
+            addEmployee();
+        } else {
+            console.log("Come back when you're ready to add Employees");
+        }
     });
 };
 
@@ -125,30 +135,4 @@ const addEmployee = () => {inquirer
 
 
 addManager();
-// addEmployee();
-// .then(addEmployee)
-// .catch(err => {
-//     console.log(err);
-//      });
 
-
-// // 1. Create an Employee object using the Employee Constructor
-//     Employees = new Employee(1, "Jeremy Employee", "jfulbright@gmail.com");
-//     Employees.getRole();
-//     Employees.printInfo();
-
-
-// // 2. Create an Manager object by extending the Employee Constructor
-//     Managers = new Manager(2, "Jeremy Manager", "jfulbright@gmail.com", "Office123");
-//     Managers.getRole();
-//     Managers.printInfo();
-
-// // 3. Create an Manager object by extending the Employee Constructor
-//     Engineers = new Engineer(3, "Jeremy Engineer", "jfulbright@gmail.com", "github/jeremyfulbright");
-//     Engineers.getRole();
-//     Engineers.printInfo();
-
-// // 4. Create an Manager object by extending the Employee Constructor
-//     Interns = new Intern(4, "Jeremy Intern", "jfulbright@gmail.com", "NAU");
-//     Interns.getRole();
-//     Interns.printInfo();
