@@ -98,8 +98,7 @@ const addManager = () => {inquirer
         // calls subclass and returns object from constructor
         const Managers = new Manager(id, fullName , email, officeNumber);
         teamArray.push(Managers);
-        console.log(teamArray);
-        console.log(teamArray[0].fullName);
+       
        
         if (managerFields.addEmployees) {
             addEmployee();
@@ -133,7 +132,6 @@ const addEmployee = () => {inquirer
             // passes current array objects back into the addEmployee function to append antoher employee object.
             return addEmployee(teamArray) 
         } else {
-            console.log(teamArray);
             console.table(teamArray);
             buildTeamHTML(teamArray);
             
