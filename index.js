@@ -3,13 +3,16 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
 
-// mapping constructor classes and subclasses
+// import Team Constructor classes and subclasses
 const Employee = require('./lib/Employee'); 
 const Manager = require('./lib/Manager');
 const Intern = require('./lib/Intern');
 const Engineer = require('./lib/Engineer');
 
-// define objects
+// import HTML template
+const templateHTML = require('./src/generateHTML');
+
+// declare an empty array for team members
 const teamArray = [];
 
 
@@ -96,10 +99,13 @@ const addManager = () => {inquirer
         const Managers = new Manager(id, fullName , email, officeNumber);
         teamArray.push(Managers);
         console.log(teamArray);
+        console.log(teamArray[0].fullName);
+       
         if (managerFields.addEmployees) {
             addEmployee();
         } else {
             console.log("Come back when you're ready to add Employees");
+            buildTeamHTML(teamArray);
         }
     });
 };
@@ -127,12 +133,23 @@ const addEmployee = () => {inquirer
             // passes current array objects back into the addEmployee function to append antoher employee object.
             return addEmployee(teamArray) 
         } else {
-            // console.log(teamArray);
-            return teamArray;
+            console.log(teamArray);
+            console.table(teamArray);
+            buildTeamHTML(teamArray);
+            
         } 
     });
 };
 
+const buildTeamHTML = () => {
+    fs.writeFile('./dist/index.html', templateHTML(teamArray), (err) =>
+    err ? console.error(err) : console.log('Team Org Page created')
+    )
+}
 
-addManager();
+// Initiate the application
+function init() {
+    addManager();
+};
 
+init();
